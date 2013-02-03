@@ -42,9 +42,13 @@ about::about(database *pdata, QWidget *parent) :
 	msg +=  __DATE__ ;
 	msg += " ";
 	msg += __TIME__;
+#ifdef _MSC_VER
+    msg += "<br>MSVC ";
+    msg += QString::number(_MSC_VER);
+#else
 	msg += "<br>GCC ";
-	msg += __VERSION__;
-
+    msg += __VERSION__;
+#endif
 	msg += "<br><br>" + tr("mcercle utilise :<br>");
 	msg += tr("- l&#146;interface graphique Qt4. <a href=\"http://qt-project.org\">http://qt-project.org</a><br>");
 
