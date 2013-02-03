@@ -1,0 +1,5 @@
+*.directory
+*.user*
+*-build-desktop/
+*~
+
