@@ -97,16 +97,8 @@ FORMS += src/mainwindow.ui \
     src/dialogtax.ui \
     src/dialoginvoicelist.ui
 
-UI_SOURCES_DIR = src/
-UI_HEADERS_DIR = src/
-
 # Liste des fichiers qui seront incorpores au binaire en tant que ressources
 RESOURCES += ressources.qrc
-
-# Destination des fichiers objets
-MOC_DIR = out/
-OBJECTS_DIR = out/
-DESTDIR = out/
 
 # Description de l'installation
 target.path = /usr/bin/
