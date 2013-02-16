@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QLocale>
+#include <QSqlTableModel>
 
 #include "settings.h"
 #include "dbase.h"
@@ -25,6 +26,7 @@ private:
 	Settings *m_Settings;
 	database *m_data;
 	QLocale m_lang;
+    QSqlTableModel* m_tvaModel;
 
 	void loadInfoDatabase();
 	void setDbaseEditState( bool state);
@@ -35,6 +37,7 @@ private slots:
 	void on_pushButton_ClearImage_clicked();
 	void on_pushButton_Logo_clicked();
 	void on_buttonBox_accepted();
+    void on_addTaxButton_clicked();
 
 signals:
 	void askRefreshList();

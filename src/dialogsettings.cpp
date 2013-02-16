@@ -27,6 +27,7 @@
 
 DialogSettings::DialogSettings(Settings *s, database *pdata, QLocale &lang, QWidget *parent) :
 	QDialog(parent),
+    m_tvaModel(new QSqlTableModel(this)),
 	ui(new Ui::DialogSettings)
 {
 	ui->setupUi(this);
@@ -129,7 +130,7 @@ void DialogSettings::on_buttonBox_accepted()
 	m_Settings->setDatabase_port( ui->lineEdit_port->text().toInt() );
 	m_Settings->setDatabase_databaseName( ui->lineEdit_databaseName->text() );
 	m_Settings->setDatabase_userName( ui->lineEdit_login->text());
-	m_Settings->setDatabase_userPassword( ui->lineEdit_password->text() );
+    m_Settings->setDatabase_userPassword( ui->lineEdit_password->text() );
 }
 
 /**
@@ -268,4 +269,21 @@ void DialogSettings::loadInfoDatabase() {
 	 ui->lineEdit_IBAN8->setText( b.IBAN8 );
 	 ui->lineEdit_IBAN9->setText( b.IBAN9 );
 	 ui->lineEdit_BIC->setText( b.codeBIC );
+
+     m_tvaModel->setTable("TAB_TAX");
+     m_tvaModel->setEditStrategy(QSqlTableModel::OnFieldChange);
+     m_tvaModel->setHeaderData(1, Qt::Horizontal, tr("Taux (%)"));
+     m_tvaModel->setHeaderData(2, Qt::Horizontal, tr("Description"));
+     m_tvaModel->select();
+     ui->tvaView->setModel(m_tvaModel);
+     ui->tvaView->setColumnHidden(0, true);
+     ui->tvaView->horizontalHeader()->setStretchLastSection(true);
+     ui->tvaView->setSelectionBehavior(QAbstractItemView::SelectRows);
+     ui->tvaView->setSelectionMode(QAbstractItemView::SingleSelection);
 }
+
+void DialogSettings::on_addTaxButton_clicked()
+{
+    m_tvaModel->insertRow(m_tvaModel->rowCount());
+}
+
