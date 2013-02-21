@@ -33,6 +33,7 @@ public:
 		QStringList name;
 		QStringList description;
 		std::vector<float> price;
+        std::vector<float> tax;
 	}serviceCommList;
 
 	//State
@@ -51,6 +52,7 @@ public:
 	void setId(const int& id){m_id = id;}
 	void setIdCustomer(const int& idCustomer){m_idCustomer = idCustomer;}
 	void setPrice(const float& price){m_price = price;}
+    void setTax(const float& tax) { m_tax = tax; }
 	void setDate(const QDateTime& theDate){m_theDate = theDate;}
 	void setName(const  QString& name){m_name = name;}
 	void setDescription(const  QString& description){m_description = description;}
@@ -59,6 +61,7 @@ public:
 	int getId(){return m_id;}
 	int getIdCustomer(){return m_idCustomer;}
 	qreal getPrice(){return m_price;}
+    qreal getTax() { return m_tax; }
 	QDateTime getCreationDate(){return m_creationDate;}
 	QDateTime getDate(){return m_theDate;}
 	QString getName(){return m_name;}

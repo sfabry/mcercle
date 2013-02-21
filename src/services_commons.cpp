@@ -44,12 +44,13 @@ bool service_common::create() {
 	// Construction de la requette
 	// Si le charactere speciaux "\'" existe on l'adapte pour la requette
 	QString f;
-	QString req = "INSERT INTO TAB_SERVICES_COMMONS(CREATIONDATE, THEDATE, PRICE, NAME, DESCRIPTION) ";
+    QString req = "INSERT INTO TAB_SERVICES_COMMONS(CREATIONDATE, THEDATE, PRICE, TAX, NAME, DESCRIPTION) ";
 	req += "VALUES(";
 	req += "'" + QDateTime::currentDateTime().toString(tr("yyyy/MM/dd-HH:mm:ss")) + "',";
 	req += "'" + m_theDate.toString(tr("yyyy/MM/dd hh:mm:ss")) + "',";
-	req += "'" + f.setNum(m_price,'f',2) + "',";
-	req += "'" + m_name.replace("\'","''") + "',";
+    req += "'" + f.setNum(m_price,'f',2) + "',";
+    req += "'" + f.setNum(m_tax,'f',2) + "',";
+    req += "'" + m_name.replace("\'","''") + "',";
 	req += "'" + m_description.replace("\'","''") + "');";
 
 	QSqlQuery query;
@@ -73,8 +74,9 @@ bool service_common::update() {
 	QString f;
 	QString req = "UPDATE TAB_SERVICES_COMMONS SET ";
 	req += "THEDATE='" + m_theDate.toString(tr("yyyy/MM/dd hh:mm:ss")) + "',";
-	req += "PRICE='" + f.setNum(m_price,'f',2) + "',";
-	req += "NAME='" + m_name.replace("\'","''") + "',";
+    req += "PRICE='" + f.setNum(m_price,'f',2) + "',";
+    req += "TAX='" + f.setNum(m_tax,'f',2) + "',";
+    req += "NAME='" + m_name.replace("\'","''") + "',";
 	req += "DESCRIPTION='" + m_description.replace("\'","''") + "' ";
 	req += "WHERE ID='"+ QString::number(m_id) +"';";
 
@@ -192,8 +194,9 @@ bool service_common::getServiceCommList(serviceCommList& list, QString order, QS
 		while (query.next()){
 			list.id.push_back( query.value(query.record().indexOf("ID")).toInt() );
 			list.name << query.value(query.record().indexOf("NAME")).toString();
-			list.price.push_back( query.value(query.record().indexOf("PRICE")).toFloat() );
-			list.date.push_back(  query.value(query.record().indexOf("THEDATE")).toDateTime());
+            list.price.push_back( query.value(query.record().indexOf("PRICE")).toFloat() );
+            list.price.push_back( query.value(query.record().indexOf("TAX")).toFloat() );
+            list.date.push_back(  query.value(query.record().indexOf("THEDATE")).toDateTime());
 			list.description << query.value(query.record().indexOf("DESCRIPTION")).toString();
 		}
 		return true;
