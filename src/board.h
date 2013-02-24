@@ -36,7 +36,7 @@ private:
 	QLocale m_lang;
 
 private slots:
-
+    void onInvoiceDoubleClick(int row, int column);
 	void on_comboBox_yearsList_currentIndexChanged();
 };
 

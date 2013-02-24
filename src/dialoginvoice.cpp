@@ -665,6 +665,7 @@ void DialogInvoice::setInvoice(unsigned char proc){
 	m_invoice->setLimitPayment( ui->dateEdit_delivery->date() );
 	m_invoice->setPartPayment( ui->doubleSpinBox_partPAYMENT->value());
 	m_invoice->setState( ui->comboBox_State->currentIndex() );
+    m_invoice->setCode( ui->lineEdit_code->text() );
 
 	QString typeP;
 	switch(ui->comboBox_TYPE_PAYMENT->currentIndex()){

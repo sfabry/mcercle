@@ -22,14 +22,24 @@
 #include <QDesktopServices>
 #include <QTextCodec>
 #include <QMessageBox>
+#include <QtDeclarative>
 
 #include "mainwindow.h"
-
+#include "report/Company.h"
+#include "report/ReportData.h"
+#include "report/Customer_report.h"
+#include "report/Product_report.h"
 
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 	MainWindow m_win;
+
+    // Register types for QML
+    qmlRegisterType<Report::ReportData>();
+    qmlRegisterType<Report::Company>();
+    qmlRegisterType<Report::Customer>();
+    qmlRegisterType<Report::Product>();
 
 	//Plastique style
 	//QApplication::setStyle(new QPlastiqueStyle);

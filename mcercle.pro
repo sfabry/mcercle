@@ -7,10 +7,17 @@
 #    error("mcercle requires Qt 4.6 or greater")
 #}
 
-QT += sql
+QT += sql declarative
 TARGET = mcercle
 TEMPLATE = app
 CONFIG += ordered
+
+# Add more folders to ship with the application, here
+folder_01.source = report/qml
+folder_01.target = .
+DEPLOYMENTFOLDERS = folder_01
+include(qtquick2applicationviewer.pri)
+qtcAddDeployment()
 
 # Fichiers sources
 SOURCES += src/mainwindow.cpp \
@@ -42,7 +49,13 @@ SOURCES += src/mainwindow.cpp \
     src/dialogprintchoice.cpp \
     src/dialogtax.cpp \
     src/tax.cpp \
-    src/dialoginvoicelist.cpp
+    src/dialoginvoicelist.cpp \
+    report/Company.cpp \
+    report/PreviewDialog.cpp \
+    report/ReportData.cpp \
+    report/Customer_report.cpp \
+    report/Product_report.cpp \
+    report/Invoice_report.cpp
 
 
 
@@ -74,7 +87,13 @@ HEADERS += src/mainwindow.h \
     src/dialogprintchoice.h \
     src/dialogtax.h \
     src/tax.h \
-    src/dialoginvoicelist.h
+    src/dialoginvoicelist.h \
+    report/Company.h \
+    report/PreviewDialog.h \
+    report/ReportData.h \
+    report/Customer_report.h \
+    report/Product_report.h \
+    report/Invoice_report.h
 
 
 
@@ -122,4 +141,5 @@ INSTALLS += target desktop copyright
 
 OTHER_FILES += \
     Todo.txt \
-    Changelog.txt
+    Changelog.txt \
+    report/qml/cutesoft.qml

@@ -385,9 +385,9 @@ bool invoice::getInvoiceListAlert(InvoiceListAlert& list) {
 			list.code.push_back( query.value(query.record().indexOf("CODE")).toString());
 			list.description << query.value(query.record().indexOf("DESCRIPTION")).toString();
 			list.price.push_back( query.value(query.record().indexOf("PRICE")).toFloat() );
-			list.state.push_back( query.value(query.record().indexOf("STATE")).toInt() );
-
-		}
+            list.state.push_back( query.value(query.record().indexOf("STATE")).toInt() );
+            list.id.push_back( query.value(query.record().indexOf("ID")).toInt() );
+        }
 		return true;
 	}
 	else{

@@ -19,7 +19,7 @@
 
 #include "board.h"
 #include "ui_board.h"
-
+#include "report/PreviewDialog.h"
 #include <QMessageBox>
 
 /**
@@ -30,6 +30,7 @@ board::board(database *pdata, QLocale &lang, QWidget *parent) :
 	ui(new Ui::board){
 
 	ui->setupUi(this);
+    connect(ui->tableWidget_InvoiceAlert, SIGNAL(cellDoubleClicked(int,int)), this, SLOT(onInvoiceDoubleClick(int,int)));
 	m_data = pdata;
 	m_lang = lang;
 
@@ -167,6 +168,7 @@ void board::listInvoiceAlertToTable()
 		QTableWidgetItem *item_STATE     = new QTableWidgetItem();
 
 		item_CODE->setData(Qt::DisplayRole, ilist.code.at(i) );
+        item_CODE->setData(Qt::UserRole + 1, ilist.id.at(i));
 		item_DATE->setData(Qt::DisplayRole, ilist.userDate.at(i).toString(tr("dd/MM/yyyy")));
 		item_DESCRIPTION->setData(Qt::DisplayRole, ilist.description.at(i));
 		item_CUSTOMER->setData(Qt::DisplayRole, ilist.customerFirstName.at(i)+" "+ilist.customerLastName.at(i));
@@ -190,6 +192,14 @@ void board::listInvoiceAlertToTable()
 		j++;
 	}
 	ui->tableWidget_InvoiceAlert->setSortingEnabled(true);
+}
+
+void board::onInvoiceDoubleClick(int row, int column) {
+    Q_UNUSED(column);
+    int id = ui->tableWidget_InvoiceAlert->item(row, 0)->data(Qt::UserRole + 1).toInt();
+    PreviewDialog* dialog = new PreviewDialog(id, this);
+    dialog->setAttribute(Qt::WA_DeleteOnClose, true);
+    dialog->show();
 }
 
 /**
